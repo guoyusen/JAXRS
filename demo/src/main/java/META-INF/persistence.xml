@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
 	<persistence-unit name="persistence-demo" transaction-type="RESOURCE_LOCAL">
+	<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
 		<class>com.ines.demo.model.Help</class>
 		<class>com.ines.demo.model.HelpPK</class>
 		<properties>
@@ -8,6 +9,27 @@
 			<property name="javax.persistence.jdbc.user" value="SYSTEM"/>
 			<property name="javax.persistence.jdbc.password" value="AISadmin"/>
 			<property name="javax.persistence.jdbc.driver" value="oracle.jdbc.OracleDriver"/>
+			
+			<property name="eclipselink.ddl-generation.output-mode" value="database"/>
+            
+            <!-- 使用eclipselink自带的连接池，定义池的大小 -->
+            <property name="eclipselink.connection-pool.default.initial" value="1" />
+            <property name="eclipselink.connection-pool.default.min" value="1"/>
+            <property name="eclipselink.connection-pool.default.max" value="1"/>
+            
+            <!-- 日志信息 -->
+            <property name="eclipselink.show_sql" value="true"/>
+            <property name="eclipselink.logging.parameters" value="true"/>
+            <property name="eclipselink.logging.level" value="FINE"/>
+            <property name="eclipselink.logging.level.sql" value="FINE"/>
+            <property name="eclipselink.weaving" value="static"/>
+            <property name="clipselink.orm.throw.exceptions" value="true"/>
+            
+            <!-- 表自动生成
+            <property name="eclipselink.ddl-generation" value="create-tables" /> -->
+            
+            <!-- 防止每次查询操作的时候都会触发flush操作 -->
+            <property name='eclipselink.persistence-context.flush-mode' value='COMMIT'/>
 		</properties>
 	</persistence-unit>
 </persistence>
