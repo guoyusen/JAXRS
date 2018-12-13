@@ -5,16 +5,23 @@ import com.ines.demo.dao.IGenericDao;
 import java.io.Serializable;
 
 import javax.enterprise.context.RequestScoped;
-import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceUnit;
 
 @RequestScoped
 public abstract class GenericDao<T extends Serializable, PK> implements IGenericDao<T, PK> {
 
-	@Inject
+	@PersistenceUnit(unitName= "persistence-demo")
+	private EntityManagerFactory entityManagerFactory;
 	protected EntityManager entityManager;
 	public abstract Class<T> getEntityClass();
 	
+	public void setEntityManagerFactory(EntityManagerFactory entityManagerFactory) {
+		this.entityManagerFactory = entityManagerFactory;
+		this.entityManager = entityManagerFactory.createEntityManager();
+	}
+
 	@Override
 	public T find(PK pk) {
 		return entityManager.find(getEntityClass(), pk);
@@ -39,6 +46,9 @@ public abstract class GenericDao<T extends Serializable, PK> implements IGeneric
 		return t;
 	}
 
-	
+	@Override
+	protected void finalize() throws Throwable {
+		this.entityManager.close();
+	}
 	
 }

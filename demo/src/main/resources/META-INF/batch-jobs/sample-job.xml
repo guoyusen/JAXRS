@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<job id="sample-job" xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	version="1.0">
+
+	<step id="sample-chunk" next="sample-batchlet">
+		<chunk>
+			<reader ref="com.ines.demo.jbatch.chunk.MyItemReader" />
+			<processor ref="com.ines.demo.jbatch.chunk.MyItemProcessor" />
+			<writer ref="com.ines.demo.jbatch.chunk.MyItemWriter" />
+		</chunk>
+	</step>
+
+	<step id="sample-batchlet">
+		<batchlet ref="com.ines.demo.jbatch.batchlet.MyBatchlet" />
+	</step>
+
+</job>

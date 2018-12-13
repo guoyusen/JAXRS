@@ -2,6 +2,8 @@ package com.ines.demo.api;
 
 import java.util.List;
 
+import javax.batch.operations.JobOperator;
+import javax.batch.runtime.BatchRuntime;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
@@ -81,5 +83,25 @@ public class DemoApi {
 	public List<Help> getHelpList() {
 		return helpService.getHelpList();
 	}
+	
+	@GET
+	@Path("/batch")
+	public void processBatch() {
+		JobOperator jobOperator = BatchRuntime.getJobOperator();
+		System.out.println("[REST] バッチ呼び出し前");
+		long id = jobOperator.start("sample-job", null);
+        System.out.println("[REST] バッチ呼び出し後");
+        
+        System.out.println("jBatch Start. id = " + id);
+	}
+//	
+//	public static void main(String[] args) {
+//		JobOperator jobOperator = BatchRuntime.getJobOperator();
+//		System.out.println("[REST] バッチ呼び出し前");
+//		long id = jobOperator.start("sample-job", null);
+//        System.out.println("[REST] バッチ呼び出し後");
+//        
+//        System.out.println("jBatch Start. id = " + id);
+//	}
 
 }
