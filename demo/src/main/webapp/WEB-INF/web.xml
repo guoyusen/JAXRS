@@ -3,6 +3,9 @@
 	xmlns="http://java.sun.com/xml/ns/javaee"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	version="2.5">
-	<display-name>INES Demo</display-name>
-
+	<resource-ref>
+		<res-ref-name>/jdbc/TestDataSource</res-ref-name>
+		<res-type>javax.sql.DataSource</res-type>
+		<mapped-name>TestDataSource</mapped-name>
+	</resource-ref>
 </web-app>
