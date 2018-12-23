@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 
 import com.ines.demo.dao.ICompanyJDBCDao;
@@ -15,6 +16,7 @@ import com.ines.demo.model.Company;
 
 import oracle.jdbc.driver.OracleConnection;
 
+@RequestScoped
 public class CompanyJDBCDaoImpl extends GenericDao<Company, Long> implements ICompanyJDBCDao {
 
 	@Inject
@@ -30,11 +32,11 @@ public class CompanyJDBCDaoImpl extends GenericDao<Company, Long> implements ICo
 			
 			CallableStatement callableStatement = connection.prepareCall("select * from table(get_company_list(tabCompany => ?))");
 			
-			Array array = connection.unwrap(OracleConnection.class).createARRAY("COMPANY_TAB_TYPE", Company.getTestDataCompanies());
+			Array array = connection.unwrap(OracleConnection.class).createOracleArray("COMPANY_TAB_TYPE", Company.getTestDataCompanies().toArray());
 			
 			callableStatement.setObject("tabCompany", array);
 			
-			ResultSet resultSet = callableStatement.getResultSet();
+			ResultSet resultSet = callableStatement.executeQuery();
 			
 			while (resultSet.next()) {
 				System.out.println(resultSet.getLong(resultSet.findColumn("ID")));

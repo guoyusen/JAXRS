@@ -4,12 +4,10 @@ import com.ines.demo.dao.IGenericDao;
 
 import java.io.Serializable;
 
-import javax.enterprise.context.RequestScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceUnit;
 
-@RequestScoped
 public abstract class GenericDao<T extends Serializable, PK> implements IGenericDao<T, PK> {
 
 	@PersistenceUnit(unitName= "persistence-demo")

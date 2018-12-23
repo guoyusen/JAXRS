@@ -4,12 +4,13 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.inject.Produces;
 import javax.inject.Singleton;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
-import javax.ws.rs.Produces;
+
+import net.sf.log4jdbc.ConnectionSpy;
 
 @Singleton
 public class ConnectionProducer {
@@ -27,7 +28,6 @@ public class ConnectionProducer {
 	}
 	
 	@Produces
-	@ApplicationScoped
 	public Connection getConnection() {
 		Connection connection = null;
 		try {
@@ -35,7 +35,7 @@ public class ConnectionProducer {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return connection;
+		return new ConnectionSpy(connection);
 	}
 	
 }
