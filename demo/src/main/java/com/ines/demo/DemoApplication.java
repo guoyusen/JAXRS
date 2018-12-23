@@ -7,6 +7,7 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 
+import com.ines.demo.api.CompanyApi;
 import com.ines.demo.api.DemoApi;
 
 @ApplicationScoped
@@ -18,6 +19,7 @@ public class DemoApplication extends Application {
 
 		Set<Class<?>> rrcs = new HashSet<Class<?>>();
 		rrcs.add(DemoApi.class);
+		rrcs.add(CompanyApi.class);
 		return rrcs;
 	}
 
