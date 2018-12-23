@@ -11,7 +11,7 @@ import com.ines.demo.service.ICompanyService;
 @RequestScoped
 @Path("/api")
 public class CompanyApi {
-
+	
 	@Inject
 	ICompanyService companyService;
 	
