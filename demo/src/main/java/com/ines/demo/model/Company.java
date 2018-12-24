@@ -10,11 +10,14 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import org.eclipse.persistence.annotations.Struct;
+
 /**
  * The persistent class for the COMPANY database table.
  */
 @Entity
 @NamedQuery(name="Company.findAll", query="SELECT c FROM Company c")
+@Struct(name = "COMPANY_TYPE", fields = {"ID", "COMID", "NAME", "ADDRESS"})
 public class Company implements Serializable, SQLData{
 	private static final long serialVersionUID = 1L;
 	private long id;
@@ -92,6 +95,11 @@ public class Company implements Serializable, SQLData{
 		}
 		
 		return companies;
+	}
+
+	@Override
+	public String toString() {
+		return "Company [id=" + id + ", address=" + address + ", comid=" + comid + ", name=" + name + "]";
 	}
 
 }
